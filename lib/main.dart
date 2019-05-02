@@ -71,19 +71,19 @@ class _MainPageState extends State<MainPage> {
         title: Text(widget.title),
       ),
       body: SafeArea(
-        child: new Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            new DropdownButtonHideUnderline(
-              child: new DropdownButton<ListNameResponse>(
+            DropdownButtonHideUnderline(
+              child: DropdownButton<ListNameResponse>(
                 isExpanded: true,
                 value: _selected,
                 items: _menuItems.map((ListNameResponse response) {
-                  return new DropdownMenuItem<ListNameResponse>(
+                  return DropdownMenuItem<ListNameResponse>(
                     value: response,
-                    child: new Padding(
-                      padding: new EdgeInsets.only(left: 16.0, right: 16.0),
-                      child: new Text(response.displayName),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                      child: Text(response.displayName),
                     ),
                   );
                 }).toList(),
@@ -95,7 +95,7 @@ class _MainPageState extends State<MainPage> {
                 },
               ),
             ),
-            new Expanded(
+            Expanded(
               child: ListView.builder(
                 itemCount: _items.length,
                 itemBuilder: (BuildContext context, int index) =>
