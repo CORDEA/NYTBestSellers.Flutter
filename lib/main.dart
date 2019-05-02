@@ -74,21 +74,26 @@ class _MyHomePageState extends State<MyHomePage> {
         child: new Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            new DropdownButton<ListNameResponse>(
-              isExpanded: true,
-              value: _selected,
-              items: _menuItems.map((ListNameResponse response) {
-                return new DropdownMenuItem<ListNameResponse>(
-                  value: response,
-                  child: new Text(response.displayName),
-                );
-              }).toList(),
-              onChanged: (ListNameResponse response) {
-                setState(() {
-                  _selected = response;
-                });
-                _fetchLists();
-              },
+            new DropdownButtonHideUnderline(
+              child: new DropdownButton<ListNameResponse>(
+                isExpanded: true,
+                value: _selected,
+                items: _menuItems.map((ListNameResponse response) {
+                  return new DropdownMenuItem<ListNameResponse>(
+                    value: response,
+                    child: new Padding(
+                      padding: new EdgeInsets.only(left: 16.0, right: 16.0),
+                      child: new Text(response.displayName),
+                    ),
+                  );
+                }).toList(),
+                onChanged: (ListNameResponse response) {
+                  setState(() {
+                    _selected = response;
+                  });
+                  _fetchLists();
+                },
+              ),
             ),
             new Expanded(
               child: ListView.builder(
