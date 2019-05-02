@@ -16,9 +16,8 @@ class Client {
     final response = await http.get(_buildUrl(_GET_LIST_NAMES_PATH, null));
     if (response.statusCode == 200) {
       return ListNamesResponse.fromJson(json.decode(response.body));
-    } else {
-      return ListNamesResponse.ERROR;
     }
+    throw Exception();
   }
 
   Future<ListsResponse> getLists() async {
@@ -26,7 +25,7 @@ class Client {
     if (response.statusCode == 200) {
       return ListsResponse.fromJson(json.decode(response.body));
     }
-    return ListsResponse.ERROR;
+    throw Exception();
   }
 
   Uri _buildUrl(String path, Map<String, String> params) {
