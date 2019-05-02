@@ -14,8 +14,41 @@ class DetailPage extends StatelessWidget {
         title: Text(response.title),
       ),
       body: SafeArea(
-        child: Column(
-          children: <Widget>[],
+        child: Padding(
+          padding: EdgeInsets.only(left: 8.0, right: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              SizedBox(height: 16.0),
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text(response.description),
+                ),
+              ),
+              SizedBox(height: 16.0),
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Column(
+                    children: <Widget>[
+                      Row(children: <Widget>[
+                        Icon(Icons.book, color: Colors.black54),
+                        SizedBox(width: 16.0),
+                        Text(response.author),
+                      ]),
+                      SizedBox(height: 16.0),
+                      Row(children: <Widget>[
+                        Icon(Icons.business, color: Colors.black54),
+                        SizedBox(width: 16.0),
+                        Text(response.publisher),
+                      ]),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
