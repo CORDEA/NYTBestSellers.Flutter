@@ -1,4 +1,4 @@
-# nyt_best_sellers
+# NYTBestSellers.Flutter
 
 A new Flutter project.
 
