@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:nyt_best_sellers/detail_page.dart';
 import 'package:nyt_best_sellers/list_book_detail_response.dart';
 
 class MainListItem extends StatelessWidget {
@@ -12,6 +13,12 @@ class MainListItem extends StatelessWidget {
     return ListTile(
       title: Text(_response.title),
       subtitle: Text(_response.description),
+      onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DetailPage(response: _response),
+            ),
+          ),
     );
   }
 }
