@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:nyt_best_sellers/client.dart';
+import 'package:nyt_best_sellers/list_name_response.dart';
 
 void main() => runApp(MyApp());
 
@@ -44,7 +47,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  Client _client = Client();
+
+  List<ListNameResponse> _responses = [];
+  ListNameResponse _selected;
+
+  _MyHomePageState() {
+    _fetchListNames();
+  }
+
+  void _fetchListNames() async {
+    final names = await _client.getListNames();
+    setState(() {
+      _responses = names.results;
+      _selected = _responses[0];
+    });
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -53,7 +71,6 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
     });
   }
 
@@ -71,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
+      body: SafeArea(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
@@ -89,15 +106,24 @@ class _MyHomePageState extends State<MyHomePage> {
           // center the children vertically; the main axis here is the vertical
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+            DropdownButton<ListNameResponse>(
+              isExpanded: true,
+              value: _selected,
+              items: _responses.map((ListNameResponse response) {
+                return new DropdownMenuItem<ListNameResponse>(
+                  value: response,
+                  child: new Text(response.displayName),
+                );
+              }).toList(),
+              onChanged: (ListNameResponse response) {
+                setState(() {
+                  _selected = response;
+                });
+              },
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
+//            ListView.builder(itemBuilder: null)
           ],
         ),
       ),
