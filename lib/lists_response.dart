@@ -5,7 +5,9 @@ part 'lists_response.g.dart';
 
 @JsonSerializable()
 class ListsResponse {
-  ListsResponse(
+  static const ERROR = ListsResponse(null, null, null, null);
+
+  const ListsResponse(
       this.status, this.copyright, this.numberOfResults, this.results);
 
   final String status;
