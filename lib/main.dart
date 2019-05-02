@@ -6,38 +6,38 @@ import 'package:nyt_best_sellers/list_name_response.dart';
 import 'package:nyt_best_sellers/list_response.dart';
 import 'package:nyt_best_sellers/main_list_item.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(App());
 
-class MyApp extends StatelessWidget {
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'NYTBestSellers',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MainPage(title: 'NYTBestSellers'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class MainPage extends StatefulWidget {
+  MainPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MainPageState extends State<MainPage> {
   final Client _client = Client();
 
   List<ListNameResponse> _menuItems = [];
   ListNameResponse _selected;
   List<ListBookDetailResponse> _items = [];
 
-  _MyHomePageState() {
+  _MainPageState() {
     _fetchListNames();
   }
 
