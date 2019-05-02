@@ -20,8 +20,9 @@ class Client {
     throw Exception();
   }
 
-  Future<ListsResponse> getLists() async {
-    final response = await http.get(_buildUrl(_GET_LISTS_PATH, null));
+  Future<ListsResponse> getLists(String query) async {
+    final response =
+        await http.get(_buildUrl(_GET_LISTS_PATH, {"list": query}));
     if (response.statusCode == 200) {
       return ListsResponse.fromJson(json.decode(response.body));
     }
