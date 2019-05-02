@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nyt_best_sellers/client.dart';
+import 'package:nyt_best_sellers/list_book_detail_response.dart';
 import 'package:nyt_best_sellers/list_name_response.dart';
+import 'package:nyt_best_sellers/main_list_item.dart';
 
 void main() => runApp(MyApp());
 
@@ -28,10 +30,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Client _client = Client();
+  final Client _client = Client();
 
-  List<ListNameResponse> _responses = [];
+  List<ListNameResponse> _menuItems = [];
   ListNameResponse _selected;
+  List<ListBookDetailResponse> _items = [];
 
   _MyHomePageState() {
     _fetchListNames();
@@ -40,8 +43,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void _fetchListNames() async {
     final names = await _client.getListNames();
     setState(() {
-      _responses = names.results;
-      _selected = _responses[0];
+      _menuItems = names.results;
+      _selected = _menuItems[0];
     });
   }
 
@@ -58,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
             DropdownButton<ListNameResponse>(
               isExpanded: true,
               value: _selected,
-              items: _responses.map((ListNameResponse response) {
+              items: _menuItems.map((ListNameResponse response) {
                 return new DropdownMenuItem<ListNameResponse>(
                   value: response,
                   child: new Text(response.displayName),
@@ -70,7 +73,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
               },
             ),
-//            ListView.builder(itemBuilder: null)
+            ListView.builder(
+              itemCount: _items.length,
+              itemBuilder: (BuildContext context, int index) =>
+                  MainListItem(_items[index]),
+            )
           ],
         ),
       ),
