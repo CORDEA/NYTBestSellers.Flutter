@@ -30,7 +30,7 @@ class ListResponse {
   final String bestsellersDate;
   @JsonKey(name: "published_date")
   final String publishedDate;
-  final String rank;
+  final int rank;
   @JsonKey(name: "rank_last_week")
   final int lastWeekRank;
   @JsonKey(name: "weeks_on_list")
