@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:nyt_best_sellers/client.dart';
 import 'package:nyt_best_sellers/list_book_detail_response.dart';
 import 'package:nyt_best_sellers/list_name_response.dart';
+import 'package:nyt_best_sellers/list_response.dart';
 import 'package:nyt_best_sellers/main_list_item.dart';
 
 void main() => runApp(MyApp());
@@ -48,6 +49,21 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _fetchLists() async {
+    final lists = await _client.getLists(_selected.encodedName);
+    setState(() {
+      _items = lists.results
+          .map(
+            (ListResponse response) => response.bookDetails.firstWhere(
+                  (_) => true,
+                  orElse: () => null,
+                ),
+          )
+          .where((ListBookDetailResponse response) => response != null)
+          .toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,10 +71,10 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: SafeArea(
-        child: Column(
+        child: new Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            DropdownButton<ListNameResponse>(
+            new DropdownButton<ListNameResponse>(
               isExpanded: true,
               value: _selected,
               items: _menuItems.map((ListNameResponse response) {
@@ -71,13 +87,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() {
                   _selected = response;
                 });
+                _fetchLists();
               },
             ),
-            ListView.builder(
-              itemCount: _items.length,
-              itemBuilder: (BuildContext context, int index) =>
-                  MainListItem(_items[index]),
-            )
+            new Expanded(
+              child: ListView.builder(
+                itemCount: _items.length,
+                itemBuilder: (BuildContext context, int index) =>
+                    MainListItem(_items[index]),
+              ),
+            ),
           ],
         ),
       ),
