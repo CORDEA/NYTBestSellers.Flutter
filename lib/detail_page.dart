@@ -23,7 +23,13 @@ class DetailPage extends StatelessWidget {
               Card(
                 child: Padding(
                   padding: EdgeInsets.all(16.0),
-                  child: Text(response.description),
+                  child: Text(
+                    response.description,
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      height: 1.3,
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: 16.0),
@@ -35,13 +41,19 @@ class DetailPage extends StatelessWidget {
                       Row(children: <Widget>[
                         Icon(Icons.book, color: Colors.black54),
                         SizedBox(width: 16.0),
-                        Text(response.author),
+                        Text(
+                          response.author,
+                          style: TextStyle(fontSize: 16.0),
+                        ),
                       ]),
                       SizedBox(height: 16.0),
                       Row(children: <Widget>[
                         Icon(Icons.business, color: Colors.black54),
                         SizedBox(width: 16.0),
-                        Text(response.publisher),
+                        Text(
+                          response.publisher,
+                          style: TextStyle(fontSize: 16.0),
+                        ),
                       ]),
                     ],
                   ),
